@@ -1,0 +1,76 @@
+doctype html
+html
+  head
+    title= title
+  body
+    h1 Robot Auto Test Result
+    p   
+
+    ul(class="one" id="all")
+        -for(var i = data.length-1; i >=0; i--)  
+            li
+                a(href="http://127.0.0.1:8083/logfile?filename=" + data[i]["log"]) #{data[i]["log"]}
+                span= " Total: " + data[i]["total"]
+                span(class="pass")= " Passed: " + data[i]["passed"]
+                span(class="fail")= " Failed: " + data[i]["failed"]
+    span page:
+    span(id="a2")
+    span /
+    span(id="a1")
+    div
+    a(href="#" onClick="change(--pageno)") 上一页
+    span(id="a3")
+    a(href="#" onClick="change(++pageno)") 下一页
+
+script.
+    var a = document.getElementById("all").getElementsByTagName("li");
+    var zz =new Array(a.length);
+    for(var i=0;i <a.length;i++){ 
+        zz[i]=a[i].innerHTML;
+    }
+    var pageno=1 ;              
+    var pagesize=20;            
+    if(zz.length%pagesize==0){
+        var  pageall =zz.length/pagesize ;
+    }else{
+        var  pageall =parseInt(zz.length/pagesize)+1;  
+    }
+    function change(e){
+        pageno=e;
+        if(e<1){ 
+            e=1;pageno=1;
+        }
+        if(e>pageall){  
+            e=pageall;pageno=pageall; 
+        }
+        document.getElementById("all").innerHTML=""
+            for(var i=0;i<pagesize;i++){
+                var div =document.createElement("li")
+                div.innerHTML=zz[(e-1)*pagesize+i]
+                document.getElementById("all").appendChild(div)
+                if(zz[(e-1)*pagesize+i+1]==null) break;
+            }
+        var ye="";
+        for(var j=1;j<=pageall;j++){
+            if(e==j){
+                ye=ye+"<span><a href='#' onClick='change("+j+")' style='color:#FF0000'>"+j+"</a></span> "
+            }else{
+                ye=ye+"<a href='#' onClick='change("+j+")'>"+j+"</a> "
+            }
+        }
+        document.getElementById("a1").innerHTML=pageall;
+        document.getElementById("a2").innerHTML=pageno;
+        document.getElementById("a3").innerHTML=ye;
+    }
+    change(1);
+            
+style.
+    h1{
+        text-shadow: 5px 5px 5px grey;
+    }
+    span.pass{
+        color:green;
+    }
+    span.fail{
+        color:red;
+    }

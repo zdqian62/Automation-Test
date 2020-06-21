@@ -1,0 +1,76 @@
+doctype html
+html
+  head
+    title= title
+    //link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    h1= title
+    p Robot Auto Test Result
+    div(class="one")
+        -for(var i = 0; i < parseInt(data.length/4); i++)
+            li   
+                a(href="http://127.0.0.1:8083/logfile?filename=" + data[i]["log"]) #{data[i]["log"]}
+                div
+                span= "    Total  Testcases: " + data[i]["total"]
+                div
+                span(class="pass")= "    Passed Testcases: " + data[i]["passed"]
+                div
+                span(class="fail")= "    Failed Testcases: " + data[i]["failed"]
+    div(class="two")
+        -for(var i = parseInt(data.length/4); i < parseInt(data.length/2); i++)
+            li   
+                a(href="http://127.0.0.1:8083/logfile?filename=" + data[i]["log"]) #{data[i]["log"]}
+                div
+                span= "    Total  Testcases: " + data[i]["total"]
+                div
+                span(class="pass")= "    Passed Testcases: " + data[i]["passed"]
+                div
+                span(class="fail")= "    Failed Testcases: " + data[i]["failed"]
+    div(class="three")
+        -for(var i = parseInt(data.length/2); i < parseInt(data.length*3/4); i++)
+            li   
+                a(href="http://127.0.0.1:8083/logfile?filename=" + data[i]["log"]) #{data[i]["log"]}
+                div
+                span= "    Total  Testcases: " + data[i]["total"]
+                div
+                span(class="pass")= "    Passed Testcases: " + data[i]["passed"]
+                div
+                span(class="fail")= "    Failed Testcases: " + data[i]["failed"]
+    div(class="four")
+        -for(var i = parseInt(data.length*3/4); i < data.length; i++)
+            li   
+                a(href="http://127.0.0.1:8083/logfile?filename=" + data[i]["log"]) #{data[i]["log"]}
+                div
+                span= "    Total  Testcases: " + data[i]["total"]
+                div
+                span(class="pass")= "    Passed Testcases: " + data[i]["passed"]
+                div
+                span(class="fail")= "    Failed Testcases: " + data[i]["failed"]
+            
+style.
+    div.one{
+        float:left;
+        width:240px;
+        padding:10px;
+    }
+    div.two{
+        float:left;
+        width:240px;
+        padding:10px;
+    }
+    div.three{
+        float:left;
+        width:240px;
+        padding:10px;
+    }
+    div.four{
+        float:left;
+        width:240px;
+        padding:10px;
+    }
+    span.pass{
+        color:green;
+    }
+    span.fail{
+        color:red;
+    }
